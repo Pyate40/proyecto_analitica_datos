@@ -32,6 +32,9 @@ def calcular_indicadores(datos):
     )
     resumen_anual["Factor"] = resumen_anual["factor"].map(ETIQUETAS_FACTORES)
 
+    # En cada año se ordena primero por proporción descendente. Si existe un
+    # empate exacto, se usa el nombre del factor en orden alfabético y se
+    # seleccionan exactamente tres factores.
     top3_anual = resumen_anual.sort_values(
         ["Año", "Proporción", "Factor"], ascending=[True, False, True]
     ).copy()
@@ -42,7 +45,11 @@ def calcular_indicadores(datos):
 
 
 def generar_ranking(resumen_global, top3_anual, numero_anos):
-    """Ordena los nueve factores por proporción global y persistencia anual."""
+    """Genera el ranking con una regla de ordenamiento completamente definida.
+
+    El criterio primario es la proporción global; el secundario es el número
+    de años en el top 3; y los empates exactos se resuelven alfabéticamente.
+    """
     persistencia = (
         top3_anual.groupby("factor")
         .size()

@@ -36,20 +36,14 @@ COLUMNAS_REQUERIDAS = COLUMNAS_FILTRO + FACTORES
 
 
 def cargar_datos(ruta):
-    """Carga todas las columnas disponibles en el archivo CSV."""
-    return pd.read_csv(ruta, sep=";")
-
-
-def seleccionar_columnas(datos):
-    """Conserva las tres variables de filtro y los nueve factores analizados."""
-    faltantes = [
-        columna for columna in COLUMNAS_REQUERIDAS if columna not in datos.columns
-    ]
+    """Carga del CSV únicamente las doce columnas necesarias."""
+    encabezados = pd.read_csv(ruta, sep=";", nrows=0).columns
+    faltantes = [columna for columna in COLUMNAS_REQUERIDAS if columna not in encabezados]
 
     if faltantes:
         raise ValueError(f"Faltan columnas requeridas: {', '.join(faltantes)}")
 
-    return datos[COLUMNAS_REQUERIDAS].copy()
+    return pd.read_csv(ruta, sep=";", usecols=COLUMNAS_REQUERIDAS)
 
 
 def filtrar_poblacion(datos, ano_inicial, ano_final):
@@ -57,61 +51,76 @@ def filtrar_poblacion(datos, ano_inicial, ano_final):
     if ano_inicial > ano_final:
         raise ValueError("El año inicial no puede ser mayor que el año final.")
 
+    # Se comprueba que no existan espacios al inicio o al final que alteren
+    # las comparaciones exactas utilizadas en el filtro.
+    for columna in ["clasificaciondelaconducta", "ciclovital"]:
+        con_espacios = datos[columna].dropna().ne(datos[columna].dropna().str.strip())
+        if con_espacios.any():
+            raise ValueError(f"La columna {columna} contiene espacios externos.")
+
+    if "Ideación suicida" not in datos["clasificaciondelaconducta"].dropna().unique():
+        raise ValueError("No se encontró la categoría 'Ideación suicida'.")
+
     categoria_adolescencia = "12 – 17 Adolescencia"
+    if categoria_adolescencia not in datos["ciclovital"].dropna().unique():
+        raise ValueError(f"No se encontró la categoría '{categoria_adolescencia}'.")
+
     filtro = (
         datos["clasificaciondelaconducta"].eq("Ideación suicida")
         & datos["ciclovital"].eq(categoria_adolescencia)
         & datos["ano_notificacion"].between(ano_inicial, ano_final)
     )
 
-    return datos.loc[filtro, ["ano_notificacion"] + FACTORES].copy()
+    datos_filtrados = datos.loc[filtro, ["ano_notificacion"] + FACTORES].copy()
+
+    # Todos los años solicitados deben tener registros para evitar que la
+    # persistencia se calcule sobre un periodo incompleto.
+    anos_esperados = set(range(ano_inicial, ano_final + 1))
+    anos_presentes = set(datos_filtrados["ano_notificacion"].unique())
+    anos_sin_registros = sorted(anos_esperados - anos_presentes)
+    if anos_sin_registros:
+        raise ValueError(
+            "No hay registros para los siguientes años del periodo: "
+            f"{', '.join(map(str, anos_sin_registros))}"
+        )
+
+    return datos_filtrados
 
 
 def validar_datos(datos):
-    """Revisa columnas, nulos, categorías de filtro y valores binarios."""
-    faltantes = [
-        columna for columna in COLUMNAS_REQUERIDAS if columna not in datos.columns
-    ]
+    """Revisa columnas, valores faltantes y codificación binaria."""
+    columnas_analisis = ["ano_notificacion"] + FACTORES
+    faltantes = [columna for columna in columnas_analisis if columna not in datos.columns]
 
     if faltantes:
         raise ValueError(f"Faltan columnas requeridas: {', '.join(faltantes)}")
     if datos.empty:
-        raise ValueError("La base de datos no contiene registros.")
+        raise ValueError("El filtro definido no produjo registros.")
 
-    # Las categorías utilizadas en el filtro deben aparecer con la escritura exacta.
-    categorias = {
-        "clasificaciondelaconducta": "Ideación suicida",
-        "ciclovital": "12 – 17 Adolescencia",
-    }
-    for columna, categoria in categorias.items():
-        valores = datos[columna].dropna().astype(str)
-        variantes = valores[valores.str.strip().eq(categoria) & valores.ne(categoria)]
-
-        if not variantes.empty:
-            raise ValueError(
-                f"La categoría '{categoria}' contiene espacios externos en {columna}."
-            )
-        if categoria not in valores.unique():
-            raise ValueError(
-                f"No se encontró la categoría escrita exactamente como '{categoria}'."
-            )
+    reporte_faltantes = (
+        datos[columnas_analisis].isna().sum().rename("Valores faltantes").to_frame()
+    )
+    columnas_con_nulos = reporte_faltantes.loc[
+        reporte_faltantes["Valores faltantes"] > 0, "Valores faltantes"
+    ].to_dict()
+    if columnas_con_nulos:
+        raise ValueError(
+            "Se encontraron valores faltantes en las variables analizadas: "
+            f"{columnas_con_nulos}. El análisis se detiene para no alterar "
+            "los denominadores."
+        )
 
     valores_invalidos = {}
     for factor in FACTORES:
-        invalidos = sorted(set(datos[factor].dropna().unique()) - {0, 1})
+        invalidos = sorted(set(datos[factor].unique()) - {0, 1})
         if invalidos:
             valores_invalidos[factor] = invalidos
 
     if valores_invalidos:
         raise ValueError(
-            "Los factores deben contener únicamente 0, 1 o valores faltantes: "
+            "Los factores deben contener únicamente 0 o 1. "
+            "Se encontraron valores fuera del dominio binario: "
             f"{valores_invalidos}"
         )
 
-    return (
-        datos[COLUMNAS_REQUERIDAS]
-        .isna()
-        .sum()
-        .rename("Valores faltantes")
-        .to_frame()
-    )
+    return reporte_faltantes
