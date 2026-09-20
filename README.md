@@ -50,6 +50,7 @@ El análisis busca identificar las variables que mas imfluyen en el comportamien
 
 ## 3. Estructura del repositorio
 
+```text
 proyecto_analitica_datos/
 ├── README.md
 ├── requirements.txt
@@ -65,7 +66,7 @@ proyecto_analitica_datos/
    ├── datos.py
    ├── indicadores.py
    └── visualizacion.py
-
+```
 ## 4. 
 
 ## ajustes a la propuesta
