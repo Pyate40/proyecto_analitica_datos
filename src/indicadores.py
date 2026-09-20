@@ -6,7 +6,7 @@ from .datos import ETIQUETAS_FACTORES, FACTORES
 
 
 def calcular_indicadores(datos):
-    """Calcula los resultados globales, anuales y el top 3 de cada año."""
+    """Calcula las frecuencias y proporciones globales y anuales."""
     total_registros = len(datos)
     resumen_global = pd.DataFrame({
         "factor": FACTORES,
@@ -32,23 +32,31 @@ def calcular_indicadores(datos):
     )
     resumen_anual["Factor"] = resumen_anual["factor"].map(ETIQUETAS_FACTORES)
 
-    # En cada año se ordena primero por proporción descendente. Si existe un
-    # empate exacto, se usa el nombre del factor en orden alfabético y se
-    # seleccionan exactamente tres factores.
+    return resumen_global, resumen_anual
+
+
+def obtener_top3_anual(resumen_anual):
+    """Selecciona exactamente tres factores por año.
+
+    Se ordena primero por proporción anual descendente. Los empates exactos
+    se resuelven alfabéticamente por el nombre del factor.
+    """
     top3_anual = resumen_anual.sort_values(
         ["Año", "Proporción", "Factor"], ascending=[True, False, True]
     ).copy()
     top3_anual["Posición anual"] = top3_anual.groupby("Año").cumcount() + 1
-    top3_anual = top3_anual.loc[top3_anual["Posición anual"] <= 3].reset_index(drop=True)
 
-    return resumen_global, resumen_anual, top3_anual
+    return top3_anual.loc[
+        top3_anual["Posición anual"] <= 3
+    ].reset_index(drop=True)
 
 
 def generar_ranking(resumen_global, top3_anual, numero_anos):
-    """Genera el ranking con una regla de ordenamiento completamente definida.
+    """Ordena los factores por proporción, persistencia y nombre.
 
-    El criterio primario es la proporción global; el secundario es el número
-    de años en el top 3; y los empates exactos se resuelven alfabéticamente.
+    El criterio principal es la proporción global descendente; el secundario
+    es el número de años en el top 3 descendente; y un empate exacto se
+    resuelve alfabéticamente.
     """
     persistencia = (
         top3_anual.groupby("factor")

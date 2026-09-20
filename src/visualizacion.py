@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-def grafico_ranking_global(ranking):
+def grafico_proporcion_global(resumen_global):
     """Muestra la proporción global de los nueve factores."""
-    datos = ranking.sort_values("Proporción")
+    datos = resumen_global.sort_values("Proporción")
 
     plt.figure(figsize=(10, 6))
     sns.barplot(data=datos, x="Proporción", y="Factor", color="#0B6E99")
