@@ -51,20 +51,20 @@ El análisis busca identificar las variables que mas imfluyen en el comportamien
 ## 3. Estructura del repositorio
 
 proyecto_analitica_datos/
-├── README.md
-├── requirements.txt
-├── data/
-│   └── osb_salud_mental_ideacion_e_intento.csv
-├── Informe/
-│   └── Aqui_va_el_pdf.pdf
-├── notebooks/
-│   └── analisis_factores_ideacion_suicida.ipynb
-└── src/
-    ├── __init__.py
-    ├── estadistica.py
-    ├── datos.py
-    ├── indicadores.py
-    └── visualizacion.py
+-├── README.md
+-├── requirements.txt
+-├── data/
+-│   └── osb_salud_mental_ideacion_e_intento.csv
+-├── Informe/
+-│   └── Aqui_va_el_pdf.pdf
+-├── notebooks/
+-│   └── analisis_factores_ideacion_suicida.ipynb
+-└── src/
+-   ├── __init__.py
+-    ├── estadistica.py
+-    ├── datos.py
+-    ├── indicadores.py
+-    └── visualizacion.py
 
 ## 4. 
 
