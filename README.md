@@ -17,6 +17,29 @@
 - Variables analizadas: nueve factores binarios.
 - Un registro puede presentar varios factores simultáneamente, por eso sus proporciones no tienen que sumar 100 %.
 
+## 1. Planteamiento del caso 
+
+La conducta suicida constituye un problema de salud pública que requiere sistemas de vigilancia capaces de recopilar, analizar e interpretar información para apoyar la identificación de factores y circunstancias asociadas.
+
+Este proyecto tiene como propósito realizar un análisis estadístico de los registros de conducta suicida reportados para Bogotá D.C., utilizando información proveniente de los registros de vigilancia epidemiológica gestionados por la Secretaría Distrital de Salud mediante el Subsistema de Vigilancia Epidemiológica de la Conducta Suicida (SISVECOS).
+El análisis busca caracterizar el comportamiento de los casos a través del tiempo e identificar diferencias en la presencia de circunstancias o eventos registrados en los casos, tales como:
+
+ * Maltrato sexual.
+
+* Muerte de un familiar.
+
+Conflictos de pareja.
+
+Problemas económicos.
+
+Problemas escolares o educativos.
+
+Problemas jurídicos.
+
+Problemas laborales.
+
+Suicidio de un amigo.
+
 ## Flujo del proyecto
 
 1. Cargar las doce columnas necesarias del CSV.
@@ -28,3 +51,7 @@
 7. Aplicar la Q de Cochran y comparaciones de McNemar con ajuste de Holm.
 8. Mostrar gráficos
 9. Ejecutar escenario  de vertificación
+
+## ajustes a la propuesta
+
+Se ajusta el modelo estadístico que se aplicará en el presente estudio, incorporando las pruebas de Cochran Q y McNemar, con el propósito de identificar las tres variables predominantes. Asimismo, se actualiza el flujograma, manteniendo la misma información y los ajustes realizados en el análisis estadístico.
