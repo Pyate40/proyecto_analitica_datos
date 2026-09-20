@@ -36,14 +36,20 @@ COLUMNAS_REQUERIDAS = COLUMNAS_FILTRO + FACTORES
 
 
 def cargar_datos(ruta):
-    """Carga del CSV únicamente las doce columnas necesarias."""
-    encabezados = pd.read_csv(ruta, sep=";", nrows=0).columns
-    faltantes = [columna for columna in COLUMNAS_REQUERIDAS if columna not in encabezados]
+    """Carga todas las columnas disponibles en el archivo CSV."""
+    return pd.read_csv(ruta, sep=";")
+
+
+def seleccionar_columnas(datos):
+    """Conserva las tres variables de filtro y los nueve factores analizados."""
+    faltantes = [
+        columna for columna in COLUMNAS_REQUERIDAS if columna not in datos.columns
+    ]
 
     if faltantes:
         raise ValueError(f"Faltan columnas requeridas: {', '.join(faltantes)}")
 
-    return pd.read_csv(ruta, sep=";", usecols=COLUMNAS_REQUERIDAS)
+    return datos[COLUMNAS_REQUERIDAS].copy()
 
 
 def filtrar_poblacion(datos, ano_inicial, ano_final):
@@ -51,20 +57,7 @@ def filtrar_poblacion(datos, ano_inicial, ano_final):
     if ano_inicial > ano_final:
         raise ValueError("El año inicial no puede ser mayor que el año final.")
 
-    # Se comprueba que no existan espacios al inicio o al final que alteren
-    # las comparaciones exactas utilizadas en el filtro.
-    for columna in ["clasificaciondelaconducta", "ciclovital"]:
-        con_espacios = datos[columna].dropna().ne(datos[columna].dropna().str.strip())
-        if con_espacios.any():
-            raise ValueError(f"La columna {columna} contiene espacios externos.")
-
-    if "Ideación suicida" not in datos["clasificaciondelaconducta"].dropna().unique():
-        raise ValueError("No se encontró la categoría 'Ideación suicida'.")
-
     categoria_adolescencia = "12 – 17 Adolescencia"
-    if categoria_adolescencia not in datos["ciclovital"].dropna().unique():
-        raise ValueError(f"No se encontró la categoría '{categoria_adolescencia}'.")
-
     filtro = (
         datos["clasificaciondelaconducta"].eq("Ideación suicida")
         & datos["ciclovital"].eq(categoria_adolescencia)
@@ -75,14 +68,33 @@ def filtrar_poblacion(datos, ano_inicial, ano_final):
 
 
 def validar_datos(datos):
-    """Revisa columnas, valores faltantes y codificación binaria."""
-    columnas_analisis = ["ano_notificacion"] + FACTORES
-    faltantes = [columna for columna in columnas_analisis if columna not in datos.columns]
+    """Revisa columnas, nulos, categorías de filtro y valores binarios."""
+    faltantes = [
+        columna for columna in COLUMNAS_REQUERIDAS if columna not in datos.columns
+    ]
 
     if faltantes:
         raise ValueError(f"Faltan columnas requeridas: {', '.join(faltantes)}")
     if datos.empty:
-        raise ValueError("El filtro definido no produjo registros.")
+        raise ValueError("La base de datos no contiene registros.")
+
+    # Las categorías utilizadas en el filtro deben aparecer con la escritura exacta.
+    categorias = {
+        "clasificaciondelaconducta": "Ideación suicida",
+        "ciclovital": "12 – 17 Adolescencia",
+    }
+    for columna, categoria in categorias.items():
+        valores = datos[columna].dropna().astype(str)
+        variantes = valores[valores.str.strip().eq(categoria) & valores.ne(categoria)]
+
+        if not variantes.empty:
+            raise ValueError(
+                f"La categoría '{categoria}' contiene espacios externos en {columna}."
+            )
+        if categoria not in valores.unique():
+            raise ValueError(
+                f"No se encontró la categoría escrita exactamente como '{categoria}'."
+            )
 
     valores_invalidos = {}
     for factor in FACTORES:
@@ -96,4 +108,10 @@ def validar_datos(datos):
             f"{valores_invalidos}"
         )
 
-    return datos[columnas_analisis].isna().sum().rename("Valores faltantes").to_frame()
+    return (
+        datos[COLUMNAS_REQUERIDAS]
+        .isna()
+        .sum()
+        .rename("Valores faltantes")
+        .to_frame()
+    )
