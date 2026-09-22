@@ -37,6 +37,11 @@ proyecto_analitica_datos/
    └── visualizacion.py
 ```
 ## 4. Instruccionnes
+- Descargar repositorio
+- Descomprimir
+- Abrir la carpeta del repositorio el visual studio
+- Instalar requeriments
+- Ejecutar el codigo
 
 ## 5. Ajustes a la propuesta
 
