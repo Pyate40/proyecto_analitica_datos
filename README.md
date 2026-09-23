@@ -62,8 +62,8 @@ proyecto_analitica_datos/
    └── visualizacion.py
 ```
 ## 5. Instruccionnes
--Descargar la carpeta del proyecto como ZIP.
--Descomprimir la carpeta.
+*Descargar la carpeta del proyecto como ZIP.
+*Descomprimir la carpeta.
 -Abrir en Visual Studio Code la carpeta principal proyecto_analitica_datos.
 -Abrir una terminal desde la raíz del proyecto.
 -Instalar las dependencias con el siguiente comando:python -m pip install -r requirements.txt
