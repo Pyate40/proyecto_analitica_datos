@@ -55,7 +55,7 @@ proyecto_analitica_datos/
 ├── notebooks/
 │   └── analisis_factores_ideacion_suicida.ipynb
 └── src/
-   ├── __init__.py
+   ├── __init__
    ├── estadistica.py
    ├── datos.py
    ├── indicadores.py
