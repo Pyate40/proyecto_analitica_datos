@@ -26,7 +26,21 @@ Los factores son variables binarias, donde 1 indica su presencia y 0 su ausencia
 ## 2. Pregunta de analisis
 ¿Qué factores desencadenantes predominan en los registros de ideación suicida notificados en adolescentes de 12 a 17 años en Bogotá entre 2017 y 2025?
 
-## 3. Estructura del repositorio
+## 3. Metodología
+
+El proyecto desarrolla las siguientes etapas:
+
+1. Carga de la base de datos completa.
+2. Selección de las doce columnas necesarias.
+3. Validación de columnas, valores faltantes, categorías de filtro y factores binarios.
+4. Filtro de ideación suicida, adolescencia y periodo 2017–2025.
+5. Cálculo de frecuencias y proporciones globales y anuales.
+6. Aplicación de la prueba Q de Cochran a los nueve factores.
+7. Elaboración del ranking y selección de los tres factores principales.
+8. Comparación del top 3 mediante la prueba de McNemar con ajuste de Holm.
+9. Presentación de tablas, gráficos y conclusiones.
+
+## 4. Estructura del repositorio
 
 ```text
 proyecto_analitica_datos/
@@ -47,7 +61,7 @@ proyecto_analitica_datos/
    ├── indicadores.py
    └── visualizacion.py
 ```
-## 4. Instruccionnes
+## 5. Instruccionnes
 -Descargar la carpeta del proyecto como ZIP.
 -Descomprimir la carpeta.
 -Abrir en Visual Studio Code la carpeta principal proyecto_analitica_datos.
@@ -56,15 +70,17 @@ proyecto_analitica_datos/
 -Abrir el Notebook analisis_factores_ideacion_suicida.ipynb
 -Ejecutar todas las celdas con la opción Run All.
 
-## 5. Ajustes a la propuesta
+## 6. Ajustes a la propuesta
 
-Se ajusta el modelo estadístico que se aplicará en el presente estudio, incorporando las pruebas de Cochran Q y McNemar, con el propósito de identificar las tres variables predominantes. Asimismo, se actualiza el flujograma, manteniendo la misma información y los ajustes realizados en el análisis estadístico.
+-Se incorporaron las pruebas Q de Cochran y McNemar como soporte estadístico para comparar las proporciones de los factores.
+-Se definió una regla completa para el ranking: proporción global, persistencia anual y orden alfabético en caso de empate exacto.
+-Se actualizó el diagrama de flujo para que represente el orden real de ejecución del notebook.
 
-## 6. Referencias
+## 7. Referencias
 
-•	Secretaría Distrital de Salud de Bogotá. (s. f.). Conducta suicida en Bogotá D.C. Observatorio de Salud de Bogotá – SaluData. Conducta suicida en Bogotá D.C.
+   Secretaría Distrital de Salud de Bogotá. (s. f.). Conducta suicida en Bogotá D.C. Observatorio de Salud de Bogotá – SaluData. Conducta suicida en Bogotá D.C.
 
-## 7. Declaración de uso de inteligencia artificial
+## 8. Declaración de uso de inteligencia artificial
 
 Se utilizó asistencia de inteligencia artificial como apoyo para revisar, depurar y documentar el código. El contenido final fue revisado y adaptado por los autores.
 
