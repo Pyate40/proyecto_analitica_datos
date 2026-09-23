@@ -46,3 +46,9 @@ proyecto_analitica_datos/
 ## 5. Ajustes a la propuesta
 
 Se ajusta el modelo estadístico que se aplicará en el presente estudio, incorporando las pruebas de Cochran Q y McNemar, con el propósito de identificar las tres variables predominantes. Asimismo, se actualiza el flujograma, manteniendo la misma información y los ajustes realizados en el análisis estadístico.
+
+## 6. Referencias
+
+•	Secretaría Distrital de Salud de Bogotá. (s. f.). Conducta suicida en Bogotá D.C. Observatorio de Salud de Bogotá – SaluData. Conducta suicida en Bogotá D.C.
+•	Se utilizó asistencia de inteligencia artificial como apoyo para revisar, depurar y documentar el código. El contenido final fue revisado y adaptado por los autores.
+
