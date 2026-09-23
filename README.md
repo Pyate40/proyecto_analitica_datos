@@ -62,19 +62,19 @@ proyecto_analitica_datos/
    └── visualizacion.py
 ```
 ## 5. Instruccionnes
-*Descargar la carpeta del proyecto como ZIP.
-*Descomprimir la carpeta.
--Abrir en Visual Studio Code la carpeta principal proyecto_analitica_datos.
--Abrir una terminal desde la raíz del proyecto.
--Instalar las dependencias con el siguiente comando:python -m pip install -r requirements.txt
--Abrir el Notebook analisis_factores_ideacion_suicida.ipynb
--Ejecutar todas las celdas con la opción Run All.
+1. Descargar la carpeta del proyecto como archivo ZIP.
+2. Descomprimir la carpeta.
+3. Abrir en Visual Studio Code la carpeta principal proyecto_analitica_datos.
+4. Abrir una terminal desde la raíz del proyecto.
+5. Instalar las dependencias abriendo una nueva terminal, validando que la ruta este en la carpeta del proyecto y ejecutar el siguiente comando: py -m pip install -r requirements.txt
+6. Abrir el notebook analisis_factores_ideacion_suicida.ipynb.
+7. Ejecutar todas las celdas con la opción Run All.
 
 ## 6. Ajustes a la propuesta
 
--Se incorporaron las pruebas Q de Cochran y McNemar como soporte estadístico para comparar las proporciones de los factores.
--Se definió una regla completa para el ranking: proporción global, persistencia anual y orden alfabético en caso de empate exacto.
--Se actualizó el diagrama de flujo para que represente el orden real de ejecución del notebook.
+- Se incorporaron las pruebas Q de Cochran y McNemar como soporte estadístico para comparar las proporciones de los factores.
+- Se definió una regla completa para el ranking: proporción global, persistencia anual y orden alfabético en caso de empate exacto.
+- Se actualizó el diagrama de flujo para que represente el orden real de ejecución del notebook.
 
 ## 7. Referencias
 
