@@ -23,7 +23,7 @@ El propósito es identificar cuáles de los siguientes nueve factores aparecen c
 
 Los factores son variables binarias, donde 1 indica su presencia y 0 su ausencia.
 
-## 2. Pregunta de analisis
+## 2. Pregunta de análisis
 ¿Qué factores desencadenantes predominan en los registros de ideación suicida notificados en adolescentes de 12 a 17 años en Bogotá entre 2017 y 2025?
 
 ## 3. Metodología
@@ -48,20 +48,24 @@ proyecto_analitica_datos/
 ├── requirements.txt
 ├── data/
 │   └── osb_salud_mental_ideacion_e_intento.csv
-├── Informe/
-   └── Factores_ideacion_suicida.pdf
-   └── Diagrama_ideacion_suicida.drawio
-   └── Diagrama_ideacion_suicida.jpg
+├── figuras/
+│   ├── figura_1_proporcion_global.png
+│   ├── figura_2_mapa_calor_anual.png
+│   └── figura_3_evolucion_top3.png
+├── informe/
+│   ├── Factores_ideacion_suicida.pdf
+│   ├── Diagrama_ideacion_suicida.drawio
+│   └── Diagrama_ideacion_suicida.jpg
 ├── notebooks/
 │   └── analisis_factores_ideacion_suicida.ipynb
 └── src/
-   ├── __init__
-   ├── estadistica.py
-   ├── datos.py
-   ├── indicadores.py
-   └── visualizacion.py
+    ├── __init__.py
+    ├── datos.py
+    ├── indicadores.py
+    ├── estadistica.py
+    └── visualizacion.py
 ```
-## 5. Instruccionnes
+## 5. Instrucciones
 1. Descargar la carpeta del proyecto como archivo ZIP.
 2. Descomprimir la carpeta.
 3. Abrir en Visual Studio Code la carpeta principal proyecto_analitica_datos.
