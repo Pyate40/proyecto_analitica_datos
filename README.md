@@ -50,5 +50,6 @@ Se ajusta el modelo estadístico que se aplicará en el presente estudio, incorp
 ## 6. Referencias
 
 •	Secretaría Distrital de Salud de Bogotá. (s. f.). Conducta suicida en Bogotá D.C. Observatorio de Salud de Bogotá – SaluData. Conducta suicida en Bogotá D.C.
+
 •	Se utilizó asistencia de inteligencia artificial como apoyo para revisar, depurar y documentar el código. El contenido final fue revisado y adaptado por los autores.
 
