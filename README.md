@@ -1,6 +1,6 @@
 # Factores desencadenantes predominantes en registros de ideación suicida
 
-**Autores:** Paola Yate Cuervo y Wilber Jonatan Plazas Murcia  
+**Autores:** Wilber Jonatan Plazas Murcia y Paola Yate Cuervo  
 **Población:** adolescentes de 12 a 17 años en Bogotá  
 **Periodo de análisis:** 2017–2025  
 
