@@ -82,7 +82,14 @@ proyecto_analitica_datos/
 
 ## 7. Referencias
 
-   Secretaría Distrital de Salud de Bogotá. (s. f.). Conducta suicida en Bogotá D.C. Observatorio de Salud de Bogotá – SaluData. Conducta suicida en Bogotá D.C.
+- Secretaría Distrital de Salud de Bogotá. (s. f.). *Conducta suicida en Bogotá D. C.* Observatorio de Salud de Bogotá, SaluData.  
+  https://saludata.saludcapital.gov.co/osb/indicadores/conducta-suicida/
+
+- Secretaría de Educación del Distrito. (s. f.). *Conducta suicida*. Observatorio de Convivencia Escolar.  
+  https://oce.educacionbogota.edu.co/conducta-suicida
+
+- Secretaría de Educación del Distrito. (s. f.). *Protocolos de atención*. Oficina de Convivencia Escolar.  
+  https://oce.educacionbogota.edu.co/protocolos-de-atencion
 
 ## 8. Declaración de uso de inteligencia artificial
 
