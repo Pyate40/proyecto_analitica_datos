@@ -6,7 +6,7 @@ import seaborn as sns
 
 def grafico_proporcion_global(resumen_global):
     """Muestra la proporción global de los nueve factores."""
-    datos = resumen_global.sort_values("Proporción")
+    datos = resumen_global.sort_values("Proporción", ascending=False)
 
     plt.figure(figsize=(10, 6))
     sns.barplot(data=datos, x="Proporción", y="Factor", color="#0B6E99")
