@@ -53,7 +53,7 @@ proyecto_analitica_datos/
 │   ├── figura_2_mapa_calor_anual.png
 │   └── figura_3_evolucion_top3.png
 ├── informe/
-│   ├── Factores_ideacion_suicida.pdf
+│   ├── Informe_factores_ideacion_suicida.pdf
 │   ├── Diagrama_ideacion_suicida.drawio
 │   └── Diagrama_ideacion_suicida.jpg
 ├── notebooks/
